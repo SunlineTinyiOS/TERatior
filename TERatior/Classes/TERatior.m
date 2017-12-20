@@ -145,11 +145,11 @@
     [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateHighlighted];
     [self addSubview:button];
-    button.enabled = NO;
+    button.enabled = YES;
     [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        button.enabled = YES;
+        button.enabled = NO;
     });
 }
 
