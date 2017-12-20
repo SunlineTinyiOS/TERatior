@@ -14,7 +14,7 @@
 		7D87587FD3D1596FF55EFB2E981301F6 /* TERatior-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D026B8E8FD67259BA50FF326CCD3E89D /* TERatior-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE8472701FEA5F2A00CD12B9 /* UIColorAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE84726E1FEA5F2A00CD12B9 /* UIColorAdditions.h */; };
 		AE8472711FEA5F2A00CD12B9 /* UIColorAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE84726F1FEA5F2A00CD12B9 /* UIColorAdditions.m */; };
-		AECF1F161FE8AD77007BA164 /* TERatior.h in Headers */ = {isa = PBXBuildFile; fileRef = AECF1F121FE8AD77007BA164 /* TERatior.h */; };
+		AECF1F161FE8AD77007BA164 /* TERatior.h in Headers */ = {isa = PBXBuildFile; fileRef = AECF1F121FE8AD77007BA164 /* TERatior.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AECF1F171FE8AD77007BA164 /* TERatior.m in Sources */ = {isa = PBXBuildFile; fileRef = AECF1F131FE8AD77007BA164 /* TERatior.m */; };
 		AECF1F181FE8AD78007BA164 /* yuan.m in Sources */ = {isa = PBXBuildFile; fileRef = AECF1F141FE8AD77007BA164 /* yuan.m */; };
 		AECF1F191FE8AD78007BA164 /* yuan.h in Headers */ = {isa = PBXBuildFile; fileRef = AECF1F151FE8AD77007BA164 /* yuan.h */; };

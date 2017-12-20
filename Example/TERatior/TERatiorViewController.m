@@ -7,6 +7,7 @@
 //
 
 #import "TERatiorViewController.h"
+#import "TERatior.h"
 
 @interface TERatiorViewController ()
 
@@ -18,6 +19,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
