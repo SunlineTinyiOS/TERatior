@@ -66,6 +66,44 @@
                 [self.anglepencent addObject:[json[i] objectForKey:@"angle"]];
             }
     }
+    if ([name isEqualToString:@"params"]) {
+        NSDictionary *json= value;
+        if ([json objectForKey:@"bigColor"]) {
+            self.bigColor = [json objectForKey:@"bigColor"];
+        }
+        if ([json objectForKey:@"smallColor"]) {
+            self.smallColor = [json objectForKey:@"smallColor"];
+        }
+        if ([json objectForKey:@"textFont"]) {
+            self.textFont = [json objectForKey:@"textFont"];
+        }
+        if ([json objectForKey:@"textColor"]) {
+            self.textColor = [json objectForKey:@"textColor"];
+        }
+        if ([json objectForKey:@"textUnit"]) {
+            self.textUnit = [json objectForKey:@"textUnit"];
+        }
+        if ([json objectForKey:@"textUnitFont"]) {
+            self.textUnitFont = [json objectForKey:@"textUnitFont"];
+        }
+        if ([json objectForKey:@"textUnitColor"]) {
+            self.textUnitColor = [json objectForKey:@"textUnitColor"];
+        }
+        if ([json objectForKey:@"intervalTime"]) {
+            self.intervalTime = [json objectForKey:@"intervalTime"];
+        }
+        if ([json objectForKey:@"speed"]) {
+            self.speed = [json objectForKey:@"speed"];
+        }
+        
+    }
+    if ([name isEqualToString:@"params"]) {
+        NSDictionary *json= value;
+        if ([json objectForKey:@"result"]) {
+            self.result = [json objectForKey:@"result"];
+        }
+    }
+    
     else if([name isEqualToString:@"bigColor"]){
         self.bigColor = value;
     }
@@ -74,10 +112,22 @@
     }
     else if([name isEqualToString:@"textFont"]){
         self.textFont = value;
+    }else if([name isEqualToString:@"textColor"]){
+        self.textColor = value;
+    }else if([name isEqualToString:@"textUnit"]){
+        self.textUnit = value;
+    }else if([name isEqualToString:@"textUnitFont"]){
+        self.textUnitFont = value;
+    }else if([name isEqualToString:@"textUnitColor"]){
+        self.textUnitColor = value;
+    }else if([name isEqualToString:@"intervalTime"]){
+        self.intervalTime = value;
+    }else if([name isEqualToString:@"speed"]){
+        self.speed = value;
+    }else if([name isEqualToString:@"result"]){
+        self.result = value;
     }
 
-
-    
     self.aaa = [[yuan alloc] initWithFrame:CGRectMake(30, 30, self.x-60, self.y-60)];
     self.aaa.anglename = self.anglename;
     self.aaa.anglepencent = self.anglepencent;
@@ -93,8 +143,14 @@
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
     [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateHighlighted];
     [self addSubview:button];
+    button.enabled = NO;
     [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        button.enabled = YES;
+    });
 }
 
 
