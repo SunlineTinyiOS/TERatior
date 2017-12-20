@@ -1,0 +1,16 @@
+PODS:
+  - TERatior (0.1.0)
+
+DEPENDENCIES:
+  - TERatior (from `../`)
+
+EXTERNAL SOURCES:
+  TERatior:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  TERatior: e0255e0b82b890679e9bdb20fd594d5c701b8056
+
+PODFILE CHECKSUM: b312e51cb81dae6e519a3cea41ace5c518caecd5
+
+COCOAPODS: 1.2.1

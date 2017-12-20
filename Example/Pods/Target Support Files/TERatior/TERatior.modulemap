@@ -1,0 +1,6 @@
+framework module TERatior {
+  umbrella header "TERatior-umbrella.h"
+
+  export *
+  module * { export * }
+}

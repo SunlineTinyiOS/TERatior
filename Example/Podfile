@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'TERatior_Example' do
+  pod 'TERatior', :path => '../'
+
+  target 'TERatior_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
