@@ -9,6 +9,7 @@
 #import "TERatior.h"
 #import "yuan.h"
 #import "UIColorAdditions.h"
+#import "UIImage+TERatior.h"
 
 @interface TERatior()<CAAnimationDelegate>
 @property (nonatomic, strong) yuan *aaa;
@@ -158,18 +159,18 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         UIImageView *imgeview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview.image = [UIImage imageNamed:@"TERatior.bundle/26"];
+        imgeview.image = [UIImage TERatiorImageNamed:@"26"];
         [self addSubview:imgeview];
         UIImageView *imgeview2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview2.image = [UIImage imageNamed:@"TERatior.bundle/24"];
+        imgeview2.image = [UIImage TERatiorImageNamed:@"24"];
         [self addSubview:imgeview2];
         
         NSMutableArray *ary=[NSMutableArray new];
         
         //通过for 循环,把我所有的 图片存到数组里面
-        UIImage *image=[UIImage imageNamed:@"TERatior.bundle/24"];
+        UIImage *image= [UIImage TERatiorImageNamed:@"24"];
         [ary addObject:image];
-        UIImage *image1=[UIImage imageNamed:@"TERatior.bundle/25"];
+        UIImage *image1 = [UIImage TERatiorImageNamed:@"25"];
         [ary addObject:image1];
         
         // 设置图片的序列帧 图片数组
@@ -199,8 +200,8 @@
     
     if(!self.button){
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
-        [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateHighlighted];
+        [button setImage:[UIImage TERatiorImageNamed:@"23"] forState:UIControlStateNormal];
+        [button setImage:[UIImage TERatiorImageNamed:@"23"] forState:UIControlStateHighlighted];
         
         [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
