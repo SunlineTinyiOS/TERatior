@@ -128,29 +128,6 @@
         self.result = value;
     }
 
-    self.aaa = [[yuan alloc] initWithFrame:CGRectMake(30, 30, self.x-60, self.y-60)];
-    self.aaa.anglename = self.anglename;
-    self.aaa.anglepencent = self.anglepencent;
-    self.aaa.bigcolor = self.bigColor;
-    self.aaa.smallcolor = self.smallColor;
-    self.aaa.textfont = self.textFont;
-    self.aaa.textunit = self.textUnit;
-    self.aaa.textunitcolor = self.textUnitColor;
-    self.aaa.textcolor = self.textColor;
-    self.aaa.textunitfont = self.textUnitFont;
-    [self.aaa start];
-    [self addSubview:self.aaa];
-    
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
-    [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"23"] forState:UIControlStateHighlighted];
-    [self addSubview:button];
-    button.enabled = YES;
-    [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        button.enabled = NO;
-    });
 }
 
 
@@ -179,18 +156,18 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         UIImageView *imgeview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview.image = [UIImage imageNamed:@"26"];
+        imgeview.image = [UIImage imageNamed:@"TERatior.bundle/26.png"];
         [self addSubview:imgeview];
         UIImageView *imgeview2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview2.image = [UIImage imageNamed:@"24"];
+        imgeview2.image = [UIImage imageNamed:@"TERatior.bundle/24.png"];
         [self addSubview:imgeview2];
         
         NSMutableArray *ary=[NSMutableArray new];
         
         //通过for 循环,把我所有的 图片存到数组里面
-        UIImage *image=[UIImage imageNamed:@"24"];
+        UIImage *image=[UIImage imageNamed:@"TERatior.bundle/24.png"];
         [ary addObject:image];
-        UIImage *image1=[UIImage imageNamed:@"25"];
+        UIImage *image1=[UIImage imageNamed:@"TERatior.bundle/25.png"];
         [ary addObject:image1];
         
         // 设置图片的序列帧 图片数组
@@ -201,7 +178,34 @@
         imgeview2.animationDuration=[self.intervalTime floatValue]/1000;
         //开始动画
         self.imgeview = imgeview2;
+        
+        
     });
+    
+    self.aaa = [[yuan alloc] initWithFrame:CGRectMake(30, 30, self.x-60, self.y-60)];
+    self.aaa.anglename = self.anglename;
+    self.aaa.anglepencent = self.anglepencent;
+    self.aaa.bigcolor = self.bigColor;
+    self.aaa.smallcolor = self.smallColor;
+    self.aaa.textfont = self.textFont;
+    self.aaa.textunit = self.textUnit;
+    self.aaa.textunitcolor = self.textUnitColor;
+    self.aaa.textcolor = self.textColor;
+    self.aaa.textunitfont = self.textUnitFont;
+    [self.aaa start];
+    [self addSubview:self.aaa];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
+    [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateHighlighted];
+    
+    button.enabled = YES;
+    [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        button.enabled = NO;
+    });
+    [self addSubview:button];
+    
 }
 
 -(void)startAnimation{
