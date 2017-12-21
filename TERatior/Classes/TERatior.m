@@ -38,6 +38,8 @@
 @property (nonatomic, copy) NSString *speed;
 //圆盘最后的角度
 @property (nonatomic, copy) NSString *result;
+
+@property (nonatomic, strong) UIButton *button;
 @end
 @implementation TERatior
 
@@ -61,10 +63,10 @@
 -(void)setParam:(NSString *)name :(id)value{
     if ([name isEqualToString:@"data"]) {
         NSArray *json= value;
-            for (int i=0; i<json.count; i++) {
-                [self.anglename addObject:[json[i] objectForKey:@"data"]];
-                [self.anglepencent addObject:[json[i] objectForKey:@"angle"]];
-            }
+        for (int i=0; i<json.count; i++) {
+            [self.anglename addObject:[json[i] objectForKey:@"data"]];
+            [self.anglepencent addObject:[json[i] objectForKey:@"angle"]];
+        }
     }
     if ([name isEqualToString:@"params"]) {
         NSDictionary *json= value;
@@ -127,7 +129,7 @@
     }else if([name isEqualToString:@"result"]){
         self.result = value;
     }
-
+    
 }
 
 
@@ -149,25 +151,25 @@
         self.y = y;
         [self creatview];
     }
-
+    
 }
 
 - (void)creatview {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         UIImageView *imgeview = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview.image = [UIImage imageNamed:@"TERatior.bundle/26.png"];
+        imgeview.image = [UIImage imageNamed:@"TERatior.bundle/26"];
         [self addSubview:imgeview];
         UIImageView *imgeview2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.x, self.y)];
-        imgeview2.image = [UIImage imageNamed:@"TERatior.bundle/24.png"];
+        imgeview2.image = [UIImage imageNamed:@"TERatior.bundle/24"];
         [self addSubview:imgeview2];
         
         NSMutableArray *ary=[NSMutableArray new];
         
         //通过for 循环,把我所有的 图片存到数组里面
-        UIImage *image=[UIImage imageNamed:@"TERatior.bundle/24.png"];
+        UIImage *image=[UIImage imageNamed:@"TERatior.bundle/24"];
         [ary addObject:image];
-        UIImage *image1=[UIImage imageNamed:@"TERatior.bundle/25.png"];
+        UIImage *image1=[UIImage imageNamed:@"TERatior.bundle/25"];
         [ary addObject:image1];
         
         // 设置图片的序列帧 图片数组
@@ -195,20 +197,21 @@
     [self.aaa start];
     [self addSubview:self.aaa];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
-    [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateHighlighted];
+    if(!self.button){
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.x/2-35,self.x/2-60, 70, 90)];
+        [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"TERatior.bundle/23.png"] forState:UIControlStateHighlighted];
+        
+        [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
+        self.button = button;
+    }
     
-    button.enabled = YES;
-    [button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        button.enabled = NO;
-    });
-    [self addSubview:button];
     
 }
 
 -(void)startAnimation{
+    self.button.userInteractionEnabled = NO;
     [self.imgeview startAnimating];
     CGFloat turnAngle = [self.result floatValue];//8个奖励分别对应的角度
     CGFloat perAngle = M_PI/180.0;
@@ -226,6 +229,9 @@
     rotationAnimation.fillMode=kCAFillModeForwards;
     rotationAnimation.removedOnCompletion = NO;
     [self.aaa.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.button.userInteractionEnabled = YES;
+    });
     
 }
 
@@ -244,3 +250,4 @@
 }
 
 @end
+
