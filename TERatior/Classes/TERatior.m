@@ -123,12 +123,24 @@
         self.speed = value;
     }
     
+    if ([name isEqualToString:@"start"]) {
+        [self startAnimation];
+    }
+    
     if ([name isEqualToString:@"result"]) {
-        NSDictionary *json= value;
-        if ([json objectForKey:@"result"]) {
-            self.result = [json objectForKey:@"result"];
-            self.rotationAnimation.toValue = [NSNumber numberWithFloat:[self.result floatValue]];
-        }
+        [self.aaa.layer removeAnimationForKey:@"rotationAnimation"];
+        CABasicAnimation *animation =  [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        //由快变慢
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+        animation.fillMode=kCAFillModeForwards;
+        animation.removedOnCompletion = NO;
+        animation.fromValue = self.rotationAnimation.toValue ;
+        CGFloat aaaaa = ceilf([self.rotationAnimation.toValue floatValue]/(2*M_PI))*2*M_PI;
+        animation.speed = 1;
+        animation.duration = 2;
+        animation.delegate=self;
+        animation.toValue = [NSNumber numberWithFloat:M_PI/([value floatValue]/180)+2*M_PI+aaaaa];
+        [self.aaa.layer addAnimation:animation forKey:@"animation"];
     }
 }
 
@@ -180,7 +192,7 @@
     // 设置图片的序列帧 图片数组
     self.imgeview2.animationImages=ary;
     //动画重复次数
-    self.imgeview2.animationRepeatCount=8;
+    self.imgeview2.animationRepeatCount=CGFLOAT_MAX;
     //动画执行时间,多长时间执行完动画
     self.imgeview2.animationDuration=[self.intervalTime floatValue]/1000;
     
@@ -210,14 +222,15 @@
     }
     [self.button setImage:[UIImage TERatiorImageNamed:@"23"] forState:UIControlStateNormal];
     [self.button setImage:[UIImage TERatiorImageNamed:@"23"] forState:UIControlStateHighlighted];
-    
-    [self.button addTarget:self action:@selector(startAnimation) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.button];
     
 }
 
+
+- (void)dealloc{
+}
+
 -(void)startAnimation{
-    self.button.userInteractionEnabled = NO;
     [self.imgeview2 startAnimating];
     CGFloat turnAngle = [self.result floatValue];//8个奖励分别对应的角度
     CGFloat perAngle = M_PI/180.0;
@@ -225,21 +238,23 @@
     CGFloat jiquan = (8*[self.intervalTime floatValue]/1000) *([self.speed floatValue])/360;
     
     self.rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    self.rotationAnimation.toValue = [NSNumber numberWithFloat:90];
-    //    rotationAnimation.toValue = [NSNumber numberWithFloat:(turnAngle)* perAngle + 360 * perAngle*jiquan];
+    self.rotationAnimation.toValue = [NSNumber numberWithFloat:(turnAngle)* perAngle + 360 * perAngle*jiquan];
     self.rotationAnimation.duration = 8*[self.intervalTime floatValue]/1000;
     self.rotationAnimation.speed = 1;
+    self.rotationAnimation.repeatCount = CGFLOAT_MAX;
     self.rotationAnimation.cumulative = YES;
     self.rotationAnimation.delegate = self;
-    //由快变慢
-    self.rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    self.rotationAnimation.fillMode=kCAFillModeForwards;
-    self.rotationAnimation.removedOnCompletion = NO;
     [self.aaa.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8*[self.intervalTime floatValue]/1000 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.button.userInteractionEnabled = YES;
-    });
     
+}
+
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    if (flag) {
+        [self.aaa.layer removeAllAnimations];
+        self.rotationAnimation=nil;
+        
+    }
 }
 
 -(NSMutableArray *)anglename{
